@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tiny-tanks.benrichardson.dev/sitemap.xml

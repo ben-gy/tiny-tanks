@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#0a0e1a"/>
+  <!-- barrel -->
+  <rect x="29" y="8" width="6" height="26" rx="3" fill="#e8eef8"/>
+  <!-- body -->
+  <rect x="16" y="30" width="32" height="24" rx="8" fill="#e69f00"/>
+  <line x1="16" y1="38" x2="48" y2="38" stroke="rgba(0,0,0,0.32)" stroke-width="2"/>
+  <line x1="16" y1="46" x2="48" y2="46" stroke="rgba(0,0,0,0.32)" stroke-width="2"/>
+  <!-- turret -->
+  <circle cx="32" cy="38" r="9" fill="#f4b52e"/>
+  <!-- teal flag accent -->
+  <path d="M46 10 L56 13 L46 16 Z" fill="#12b886"/>
+  <line x1="46" y1="10" x2="46" y2="22" stroke="#cdd6e6" stroke-width="2"/>
+</svg>
