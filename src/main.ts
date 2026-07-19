@@ -18,16 +18,17 @@ mountFeedback();
 import './styles/mobile.css';
 import './styles/main.css';
 
-import { createInput, type Input } from './engine/input';
-import { createJoystick, type Joystick } from './engine/joystick';
-import { createLoop, type Loop } from './engine/loop';
-import { hardenViewport } from './engine/mobile';
-import { createNet, type Net, type PeerId } from './engine/net';
-import { createRounds, type Rounds } from './engine/rematch';
-import { createSfx } from './engine/sound';
-import { createStore } from './engine/storage';
-import { resolveName } from './engine/identity';
-import { clearRoomInUrl, createLobby, createRoomEntry, mintCode, normalizeRoomCode } from './engine/lobby';
+import { createInput, type Input } from '@ben-gy/game-engine/input';
+import { createJoystick, type Joystick } from '@ben-gy/game-engine/joystick';
+import { createLoop, type Loop } from '@ben-gy/game-engine/loop';
+import { hardenViewport } from '@ben-gy/game-engine/mobile';
+import { createNet, roomAppId, setTurnConfig, type Net, type PeerId } from '@ben-gy/game-engine/net';
+import { getTurnConfig } from '@ben-gy/game-engine/turn';
+import { createRounds, type Rounds } from '@ben-gy/game-engine/rematch';
+import { createSfx } from '@ben-gy/game-engine/sound';
+import { createStore } from '@ben-gy/game-engine/storage';
+import { resolveName } from '@ben-gy/game-engine/identity';
+import { clearRoomInUrl, createLobby, createRoomEntry, mintCode, normalizeRoomCode } from '@ben-gy/game-engine/lobby';
 import { createCountdown, type Countdown } from './countdown';
 import { Fx } from './fx';
 import { DEFAULT_MODE, MODES, modeOf, type ModeId } from './modes';
@@ -442,8 +443,17 @@ class Game {
     this.roomCode = code;
     this.series = [0, 0];
     this.rmatchRounds = 0;
+    // TURN before the FIRST mesh on the page. Without it ICE is STUN-only and a
+    // phone on carrier CGNAT never opens a data channel — the pair sees each
+    // other in signaling and the lobby just stays empty. Trystero pre-builds its
+    // connection pool from the first joinRoom's config, so a later call would be
+    // too late. getTurnConfig() is session-cached and fails open to STUN-only,
+    // so this never blocks or delays a join.
+    setTurnConfig(await getTurnConfig());
     this.net = createNet(
-      { appId: SLUG, roomId: code, claimHost: created },
+      // roomAppId stamps the wire revision, so a player on a cached old build
+      // partitions cleanly instead of half-connecting to an updated one.
+      { appId: roomAppId(SLUG), roomId: code, claimHost: created },
       {
         onHostChange: (_id, isSelfHost) => {
           this.ng?.onHostChange(isSelfHost);
