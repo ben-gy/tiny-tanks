@@ -15,7 +15,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { NetGame, TICK_MS } from '../src/net-game';
 import { Sim, type TankInput } from '../src/game/sim';
 import { MODES } from '../src/modes';
-import type { Net, PeerId } from '../src/engine/net';
+import type { Net, PeerId } from '@ben-gy/game-engine/net';
 
 type Handler = (data: unknown, from: PeerId) => void;
 const SEED = 42;
@@ -39,7 +39,19 @@ function fakeNet(bus: Bus, selfId: PeerId, host: () => PeerId | null): Net {
     host,
     isHost: () => host() === selfId,
     hostSettled: () => host() !== null,
+    hostEpoch: () => 1,
     count: () => bus.peers.size,
+    onPeersChange: () => () => {},
+    takeover: () => {},
+    netDiag: () => ({
+      selfId,
+      host: host(),
+      epoch: 1,
+      settled: host() !== null,
+      peers: [...bus.peers.keys()].sort(),
+      relaySockets: {},
+      turn: false,
+    }),
     channel<T>(name: string, onReceive: (d: T, from: PeerId) => void) {
       const chans = bus.peers.get(selfId)!;
       if (!chans.has(name)) chans.set(name, new Set());

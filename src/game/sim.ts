@@ -20,7 +20,7 @@
  * your own rebound, are the entire hook.
  */
 
-import { makeRng, randFloat, type Rng } from '../engine/rng';
+import { makeRng, randFloat, type Rng } from '@ben-gy/game-engine/rng';
 import type { Mode } from '../modes';
 import { ARENA_H, ARENA_W, BASE_R, buildArena, teamOfSeat, type Arena } from './arena';
 import { bouncePointRect, resolveCircleRect, turnToward, type Rect } from './geom';

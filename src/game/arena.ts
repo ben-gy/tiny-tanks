@@ -16,7 +16,7 @@
  * orientation-agnostic). Nothing else in the game assumes an orientation.
  */
 
-import { makeRng, randFloat, type Rng } from '../engine/rng';
+import { makeRng, randFloat, type Rng } from '@ben-gy/game-engine/rng';
 import type { WallStyle } from '../modes';
 import type { Rect } from './geom';
 

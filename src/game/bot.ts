@@ -19,7 +19,7 @@
  * Deterministic: seeded per-seat jitter, no Math.random.
  */
 
-import { makeRng, type Rng } from '../engine/rng';
+import { makeRng, type Rng } from '@ben-gy/game-engine/rng';
 import { ARENA_H, ARENA_W } from './arena';
 import { angDelta, segIntersectsRect } from './geom';
 import {

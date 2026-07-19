@@ -12,7 +12,7 @@
  * draws; setInterval decides.
  */
 
-import type { Net } from './engine/net';
+import type { Net } from '@ben-gy/game-engine/net';
 import { Bot } from './game/bot';
 import { STEP, Sim, type SimEvent, type TankInput } from './game/sim';
 import { applySnapshot, encodeSnapshot, type Snapshot } from './game/snapshot';
