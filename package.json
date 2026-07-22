@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Bank ricochet shots around the walls, grab the enemy flag, race it home — a top-down tank-CTF you play with a thumb.",
+  "license": "AGPL-3.0-or-later",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

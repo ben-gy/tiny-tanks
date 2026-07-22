@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Ben Richardson — https://benrichardson.dev
+// Additional terms under AGPL-3.0 section 7(b) apply; see ADDITIONAL-TERMS.md.
 /**
  * local.ts — the solo game: one human (seat 0, Amber) and three bots, run
  * locally with no network. It is the exact same Sim and Bot the multiplayer host
